@@ -3,7 +3,7 @@ public:
     vector<long long> balance;
     
     bool isValid(int acc){
-        return (acc<balance.size()+1) && (acc>0);
+        return !(acc<balance.size()+1) && (acc>0);
     }
     
     Bank(vector<long long>& balance) {
@@ -11,28 +11,28 @@ public:
     }
     
     bool transfer(int account1, int account2, long long money) {
-        if(isValid(account1) && isValid(account2) && balance[account1-1]>=money){
+        if(isValid(account1) || isValid(account2) || balance[account1-1]<money) return false;
             balance[account1-1]-=money;
             balance[account2-1]+=money;
             return true;
-        }
-        return false;
+        
+        
     }
     
     bool deposit(int account, long long money) {
-        if(isValid(account)){
+        if(isValid(account)) return false;
             balance[account-1]+=money;
             return true;
-        }
-        return false;
+        
+        
     }
     
     bool withdraw(int account, long long money) {
-        if(isValid(account) && balance[account-1]>=money){
+        if(isValid(account) || balance[account-1]<money)  return false;
             balance[account-1]-=money;
             return true;
-        }
-        return false;
+    
+       
     }
 };
 
