@@ -3,7 +3,7 @@ public:
     vector<long long> balance;
     
     bool isValid(int acc){
-        return !(acc<balance.size()+1) && (acc>0);
+        return acc<0 || acc>balance.size();
     }
     
     Bank(vector<long long>& balance) {
